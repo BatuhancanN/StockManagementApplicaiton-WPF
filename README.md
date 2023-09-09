@@ -12,3 +12,5 @@ Uygulamanın tüm kodlarını repoya ekledim. Kendiniz denemek isterseniz öncel
 
 Bu uygulamayı kendimi geliştirmek ve potansiyelimi özgeçmişimde göstermek amacıyla öğrenerek aşama aşama geliştirdim. İlerleyen zamanlarda daha farklı teknolojilerle ve daha gelişmiş uygulamalarla karşınızda olacağım.
 
+### Tanıtım Videosu İçin Tıklayın
+[<img src="https://github.com/BatuhancanN/RentACar-WPFApplication/blob/main/RentACarApplication/watch-video-button.png?raw=true" width="40%">](https://www.youtube.com/watch?v=Ql4n65QvDB4 "Tanıtım Videosu")
