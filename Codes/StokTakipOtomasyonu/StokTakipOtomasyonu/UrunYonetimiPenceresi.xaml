@@ -1,0 +1,542 @@
+﻿<Window x:Class="StokTakipOtomasyonu.UrunYonetimiPenceresi"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StokTakipOtomasyonu"
+        mc:Ignorable="d"
+        Title="Ürün Yönetimi" Height="450" Width="800"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="#34495e" Icon="/products.png" ShowInTaskbar="False">
+
+    <Window.Resources>
+        <Style x:Key="kaydetButonuStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#222831" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="#222831" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)"
+                                                     To="0.7" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)"
+                                                     To="1" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="Border" Property="Background" Value="#27ae60" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="islemButonuStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#222831" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="#222831" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)"
+                                                     To="0.7" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)"
+                                                     To="1" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="Border" Property="Background" Value="#f39c12" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <ListView Foreground="Black" Background="White" x:Name="urunListesi" ItemsSource="{Binding Urun}" d:ItemsSource="{d:SampleData ItemCount=5000}" HorizontalAlignment="Center" BorderBrush="#FF27AE60" SelectionChanged="urunListesi_SelectionChanged">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextAlignment="Center"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#1abc9c"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#c0392b"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="30"/>
+                    <GridViewColumn Header="Barkod" DisplayMemberBinding="{Binding Barkod}" Width="100"/>
+                    <GridViewColumn Header="Kategori" DisplayMemberBinding="{Binding Kategori}" Width="100"/>
+                    <GridViewColumn Header="Marka" DisplayMemberBinding="{Binding Marka}" Width="100"/>
+                    <GridViewColumn Header="Ürün Tanımı" DisplayMemberBinding="{Binding UrunAdi}" Width="100"/>
+                    <GridViewColumn Header="Miktar" DisplayMemberBinding="{Binding Miktar, StringFormat=N2}" Width="80"/>
+                    <GridViewColumn Header="Ortalama Birim Maliyet (TL)" DisplayMemberBinding="{Binding Maliyet, StringFormat=N2}" Width="150"/>
+                    <GridViewColumn Header="Satış (TL)" DisplayMemberBinding="{Binding Satis, StringFormat=N2}" Width="80"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="btnEkle" Content="Ekle" Margin="0,5,0,0" Grid.Row="1" Click="btnEkle_Click" Style="{StaticResource islemButonuStyle}"/>
+                <Button x:Name="btnGuncelle" Content="Güncelle" Margin="0,5,0,0" Grid.Row="2" Click="btnGuncelle_Click" Style="{StaticResource islemButonuStyle}"/>
+                <Button x:Name="btnSil" Content="Sil" Margin="0,5,0,0" Grid.Row="3" Click="btnSil_Click" Style="{StaticResource islemButonuStyle}"/>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="btnAra" Content="Ara" Margin="0,5,0,0" Grid.Row="1" Click="btnAra_Click" Style="{StaticResource islemButonuStyle}"/>
+                <Button x:Name="btnAlimlar" FontSize="11" Content="Alım Geçmişi" Margin="0,5,0,0" Grid.Row="2" Click="btnAlimlar_Click" Style="{StaticResource islemButonuStyle}"/>
+                <Button x:Name="btnTemizle" Content="Temizle" Margin="0,5,0,0" Grid.Row="3" Click="btnTemizle_Click" Style="{StaticResource islemButonuStyle}"/>
+
+            </Grid>
+
+            <Grid Margin="5,10,5,10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnUrunAlimi" Content="Ürün Alımı" Margin="40,5,40,0" Grid.Row="2" Click="btnUrunAlimi_Click" Style="{StaticResource islemButonuStyle}"/>
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox x:Name="barkodBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+         Foreground="#222831" FontSize="14" Padding="1" TextAlignment="Center" FontFamily="Arial" IsEnabled="False">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Barkod" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBox x:Name="kategoriBox" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+         Foreground="#222831" FontSize="14" Text="" Padding="1" TextAlignment="Center" FontFamily="Arial">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Kategori" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBox x:Name="markaBox" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+         Foreground="#222831" FontSize="14" Text="" Padding="1" TextAlignment="Center" FontFamily="Arial">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Marka (opsiyonel)" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBox x:Name="urunAdiBox" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+                        Foreground="#222831" FontSize="14" Text="" Padding="1" TextAlignment="Center" FontFamily="Arial">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Ürün Tanımı" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBox x:Name="miktarBox" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+         Foreground="#222831" FontSize="14" Text="" Padding="1" TextAlignment="Center" FontFamily="Arial" IsEnabled="False">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Ürün Adeti" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBox x:Name="maliyetBox" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+         Foreground="#222831" FontSize="14" Text="" Padding="1" TextAlignment="Center" FontFamily="Arial" IsEnabled="False">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Ürün Maliyeti" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBox x:Name="satisBox" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+         Foreground="#222831" FontSize="14" Text="" Padding="1" TextAlignment="Center" FontFamily="Arial">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Satış Fiyatı" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                </Grid>
+
+                <Grid Grid.Column="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox x:Name="aramaBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199"
+         Foreground="#222831" FontSize="14" Padding="1" TextAlignment="Center" FontFamily="Arial" Grid.Row="3">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Grid>
+                                                <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"/>
+                                                <TextBlock x:Name="PlaceholderTextBlock" Text="Aranacak Metin" FontSize="14"
+                                       Foreground="#CCCCCC" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Margin="4"/>
+                                                <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="IsFocused" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PlaceholderTextBlock" Property="Visibility" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#666666"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <ComboBox x:Name="cmbAra" Grid.Row="4" Margin="10,0,10,0" VerticalAlignment="Center" Width="199" SelectionChanged="cmbAra_SelectionChanged" SelectedIndex="0" Text="Arama Kriteri Seçiniz" HorizontalAlignment="Center">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                        <ComboBoxItem Content="Arama Kriteri Seçiniz"/>
+                        <ComboBoxItem Content="Barkod"/>
+                        <ComboBoxItem Content="Kategori"/>
+                        <ComboBoxItem Content="Ürün Adı"/>
+                    </ComboBox>
+
+
+
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Window>
